@@ -1,0 +1,18 @@
+{
+  "trigger": true,
+  "modules": [
+    "add-to-group"
+  ],
+  "parentResource": "resumefixerupperbd05280c",
+  "functionName": "resumefixerupperbd05280cPostConfirmation",
+  "resourceName": "resumefixerupperbd05280cPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/snapshot/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "resumefixerupperbd05280cPostConfirmation",
+  "skipEdit": true,
+  "GROUP": "Members",
+  "enableCors": false
+}
