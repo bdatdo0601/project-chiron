@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { get } from "lodash";
+import { get, has } from "lodash";
 
-import '@aws-amplify/ui-react/styles.css';
+import "@aws-amplify/ui-react/styles.css";
+import Auth from "@aws-amplify/auth";
 
 export const useAuthenticateEffect = () => {
   useEffect(() => {
@@ -20,6 +21,42 @@ export const useAuthenticateEffect = () => {
   }, []);
 };
 
-const withCustomAuthenticator = (Component) => withAuthenticator(Component, false)
+export const useAuthenticatedUser = () => {
+  const [authUser, setAuthUser] = useState(null);
+
+  const fetchAuthenticatedUser = useCallback(async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setAuthUser(user);
+    } catch (err) {
+      console.warn(err);
+      setAuthUser(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAuthenticatedUser().then();
+
+    Hub.listen("auth", async () => {
+      await fetchAuthenticatedUser();
+    });
+    return () => {
+      Hub.remove("auth");
+    };
+  }, [fetchAuthenticatedUser]);
+
+  const authStatusData = useMemo(
+    () => ({
+      isAuthenticated: has(authUser, "signInUserSession"),
+      ...get(authUser, "attributes", {}),
+    }),
+    [authUser]
+  );
+
+  return { authUser, ...authStatusData };
+};
+
+const withCustomAuthenticator = (Component) =>
+  withAuthenticator(Component, false);
 
 export default withCustomAuthenticator;

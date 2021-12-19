@@ -22,6 +22,8 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "6",
     "react-scripts": "4.0.3",
+    "react-tsparticles": "^1.37.5",
+    "tsparticles": "^1.37.5",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

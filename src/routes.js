@@ -9,6 +9,8 @@ import {
   faHome,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Home from "./containers/Home";
+
 export const ROUTE_TYPE = {
   PUBLIC: {
     name: "",
@@ -82,7 +84,7 @@ const routes = [
   {
     name: "Home",
     icon: <FontAwesomeIcon icon={faHome} />,
-    component: () => <div>Home</div>,
+    component: Home,
     path: "/",
     exact: true,
     type: ROUTE_TYPE.PUBLIC,
