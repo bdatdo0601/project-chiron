@@ -3,7 +3,7 @@ import { flatten, groupBy } from "lodash";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Amplify from "@aws-amplify/core";
 
-import awsconfig from "./aws-exports";
+import awsConfig from "./aws-exports";
 import routes, { errorRoutes, ROUTE_TYPE } from "./routes";
 import ContextProvider from "./context";
 import Layout from "./layout";
@@ -12,12 +12,41 @@ import withCustomAWSAuthenticator, {
 } from "./components/withCustomAWSAuthenticator";
 import "./App.css";
 
+const isLocalhost = Boolean(
+  window.location.hostname === "localhost" ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === "[::1]" ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
+// Assuming you have two redirect URIs, and the first is for localhost and second is for production
+const [
+  localRedirectSignIn,
+  productionRedirectSignIn,
+] = awsConfig.oauth.redirectSignIn.split(",");
+
+const [
+  localRedirectSignOut,
+  productionRedirectSignOut,
+] = awsConfig.oauth.redirectSignOut.split(",");
+
+
 Amplify.configure({
-  ...awsconfig,
+  ...awsConfig,
+  oauth: {
+    ...awsConfig.oauth,
+    redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
+    redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
+  }
 });
 
+// GCP Cloud Auth: https://console.cloud.google.com/apis/credentials?project=chiron-335523&supportedpurview=project
+
 const groupedRoutes = groupBy(routes, "type.name");
-console.log(groupedRoutes);
+
 function App() {
   useAuthenticateEffect();
   return (

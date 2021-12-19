@@ -10,7 +10,7 @@ export default function MainLayout({ children }) {
         <meta charSet="utf-8" />
         <title>{WEBSITE_TITLE}</title>
         <link rel="canonical" href={`${window.location.href}`} />
-        <meta name="description" content="This is Dat'a Website" />
+        <meta name="description" content="Helping you to build your portfolio" />
       </Helmet>
       <main
       >

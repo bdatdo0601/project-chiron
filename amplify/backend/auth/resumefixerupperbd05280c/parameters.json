@@ -1,18 +1,16 @@
 {
-    "identityPoolName": "resumefixerupperbd05280c_identitypool_bd05280c",
-    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "resumebd05280c",
     "userPoolName": "resumefixerupperbd05280c_userpool_bd05280c",
     "autoVerifiedAttributes": [
         "email"
     ],
-    "mfaConfiguration": "OFF",
+    "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
         "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "Your Chiron Platform Verification Code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -33,7 +31,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "bd05280c",
     "resourceName": "resumefixerupperbd05280c",
-    "authSelections": "identityPoolAndUserPool",
+    "authSelections": "userPoolOnly",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -46,32 +44,33 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
         "email"
     ],
-    "triggers": "{\n  \"PostConfirmation\": [\n    \"add-to-group\"\n  ]\n}",
-    "userPoolGroupList": [],
+    "triggers": "{}",
+    "userPoolGroupList": [
+        "Admins",
+        "Mentors"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"resumefixerupperbd05280cPostConfirmation\"\n  }\n]",
     "breakCircularDependency": true,
-    "permissions": [
-        "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
+    "permissions": [],
+    "dependsOn": [],
+    "hostedUI": true,
+    "hostedUIDomainName": "chiron-auth",
+    "authProvidersUserPool": [
+        "Google"
     ],
-    "dependsOn": [
-        {
-            "category": "function",
-            "resourceName": "resumefixerupperbd05280cPostConfirmation",
-            "triggerProvider": "Cognito",
-            "attributes": [
-                "Arn",
-                "Name"
-            ]
-        }
-    ]
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "userPoolGroups": false,
+    "adminQueries": true,
+    "adminQueryGroup": "Admins",
+    "authProviders": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\",\"https://chiron.datbdo.com/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://chiron.datbdo.com/\"]}"
 }

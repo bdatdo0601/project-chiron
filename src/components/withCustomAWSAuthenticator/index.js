@@ -6,6 +6,7 @@ import { get } from "lodash";
 export const useAuthenticateEffect = () => {
   useEffect(() => {
     Hub.listen("auth", (res) => {
+      console.log(res);
       const errorMsg = get(res, "payload.data.message", "");
       if (errorMsg) {
         console.error(errorMsg, res);

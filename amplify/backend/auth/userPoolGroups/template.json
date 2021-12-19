@@ -1,0 +1,68 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "authresumefixerupperbd05280cUserPoolId": {
+            "Type": "String",
+            "Default": "authresumefixerupperbd05280cUserPoolId"
+        },
+        
+        "authresumefixerupperbd05280cAppClientID": {
+            "Type": "String",
+            "Default": "authresumefixerupperbd05280cAppClientID"
+        },
+        "authresumefixerupperbd05280cAppClientIDWeb": {
+            "Type": "String",
+            "Default": "authresumefixerupperbd05280cAppClientIDWeb"
+        },
+        "AuthRoleArn": {
+            "Type": "String"
+        },
+        "UnauthRoleArn": {
+            "Type": "String"
+        },
+        "env": {
+            "Type": "String"
+        }
+    },
+    "Conditions": {
+        "ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        }
+    },
+    "Resources": {
+    
+        "AdminsGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "Admins",
+              "Precedence" : 1,
+              
+              "UserPoolId" : {
+                "Ref": "authresumefixerupperbd05280cUserPoolId"
+              }
+            }
+        },
+        
+    
+        "MentorsGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "Mentors",
+              "Precedence" : 2,
+              
+              "UserPoolId" : {
+                "Ref": "authresumefixerupperbd05280cUserPoolId"
+              }
+            }
+        },
+        
+    
+    
+    },
+    
+}

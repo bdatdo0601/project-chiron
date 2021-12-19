@@ -12,15 +12,14 @@
       "AmplifyAppId": "d3t9dkbm79oj67"
     },
     "categories": {
-      "function": {
-        "resumefixerupperbd05280cPostConfirmation": {
-          "GROUP": "Members",
-          "deploymentBucketName": "amplify-resumefixerupper-dev-212017-deployment",
-          "s3Key": "amplify-builds/resumefixerupperbd05280cPostConfirmation-4738617a3634666e4368-build.zip"
-        }
-      },
       "auth": {
         "resumefixerupperbd05280c": {}
+      },
+      "function": {
+        "AdminQueriesc3b3a226": {
+          "deploymentBucketName": "amplify-resumefixerupper-dev-212017-deployment",
+          "s3Key": "amplify-builds/AdminQueriesc3b3a226-6c624d7576423066536e-build.zip"
+        }
       }
     }
   }

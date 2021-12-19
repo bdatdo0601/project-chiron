@@ -2,41 +2,12 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Lambda resource stack creation using Amplify CLI",
   "Parameters": {
-    "GROUP": {
-      "Type": "String",
-      "Default": ""
-    },
-    "modules": {
-      "Type": "String",
-      "Default": "",
-      "Description": "Comma-delimited list of modules to be executed by a lambda trigger. Sent to resource as an env variable."
-    },
-    "resourceName": {
-      "Type": "String",
-      "Default": ""
-    },
-    "trigger": {
-      "Type": "String",
-      "Default": "true"
-    },
-    "functionName": {
-      "Type": "String",
-      "Default": ""
-    },
-    "roleName": {
-      "Type": "String",
-      "Default": ""
-    },
-    "parentResource": {
-      "Type": "String",
-      "Default": ""
-    },
-    "parentStack": {
-      "Type": "String",
-      "Default": ""
-    },
     "env": {
       "Type": "String"
+    },
+    "authresumefixerupperbd05280cUserPoolId": {
+      "Type": "String",
+      "Default": "authresumefixerupperbd05280cUserPoolId"
     },
     "deploymentBucketName": {
       "Type": "String"
@@ -67,12 +38,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "resumefixerupperbd05280cPostConfirmation",
+            "AdminQueriesc3b3a226",
             {
               "Fn::Join": [
                 "",
                 [
-                  "resumefixerupperbd05280cPostConfirmation",
+                  "AdminQueriesc3b3a226",
                   "-",
                   {
                     "Ref": "env"
@@ -87,14 +58,9 @@
             "ENV": {
               "Ref": "env"
             },
-            "MODULES": {
-              "Ref": "modules"
-            },
-            "REGION": {
-              "Ref": "AWS::Region"
-            },
-            "GROUP": {
-              "Ref": "GROUP"
+            "GROUP": "Admins",
+            "USERPOOL": {
+              "Ref": "authresumefixerupperbd05280cUserPoolId"
             }
           }
         },
@@ -122,12 +88,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "resumefixerupperbd05280cPostConfirmation",
+            "AdminQueriesc3b3a226LambdaRole",
             {
               "Fn::Join": [
                 "",
                 [
-                  "resumefixerupperbd05280cPostConfirmation",
+                  "AdminQueriesc3b3a226LambdaRole",
                   "-",
                   {
                     "Ref": "env"
@@ -193,6 +159,41 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:ListUsersInGroup",
+                "cognito-idp:AdminUserGlobalSignOut",
+                "cognito-idp:AdminEnableUser",
+                "cognito-idp:AdminDisableUser",
+                "cognito-idp:AdminRemoveUserFromGroup",
+                "cognito-idp:AdminAddUserToGroup",
+                "cognito-idp:AdminListGroupsForUser",
+                "cognito-idp:AdminGetUser",
+                "cognito-idp:AdminConfirmSignUp",
+                "cognito-idp:ListUsers",
+                "cognito-idp:ListGroups"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:cognito-idp:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":userpool/",
+                    {
+                      "Ref": "authresumefixerupperbd05280cUserPoolId"
+                    }
+                  ]
+                ]
+              }
             }
           ]
         }
@@ -213,14 +214,14 @@
         ]
       }
     },
-    "LambdaExecutionRole": {
-      "Value": {
-        "Ref": "LambdaExecutionRole"
-      }
-    },
     "Region": {
       "Value": {
         "Ref": "AWS::Region"
+      }
+    },
+    "LambdaExecutionRole": {
+      "Value": {
+        "Ref": "LambdaExecutionRole"
       }
     }
   }

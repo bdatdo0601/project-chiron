@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Auth } from "@aws-amplify/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -49,6 +49,25 @@ const ErrorPage = () => {
 
 ErrorPage.propTypes = {};
 
+const SignOutComponent = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log("here");
+    Auth.signOut().then(() => {
+      navigate("/", { replace: true });
+    });
+  }, [navigate]);
+  return <div>Signing Out...</div>;
+};
+
+const SignInComponent = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("/", { replace: true });
+  }, [navigate]);
+  return null;
+};
+
 export const errorRoutes = [
   {
     name: "Error",
@@ -71,8 +90,8 @@ const routes = [
   {
     name: "Login",
     icon: <FontAwesomeIcon icon={faSignInAlt} />,
-    component: () => <Link to="/" />,
-    path: "/login",
+    component: SignInComponent,
+    path: "/signin",
     exact: true,
     type: ROUTE_TYPE.PRIVATE,
     hidden: async () => isAuthExist(),
@@ -80,13 +99,8 @@ const routes = [
   {
     name: "Logout",
     icon: <FontAwesomeIcon icon={faSignOutAlt} />,
-    component: ({ history }) => {
-      Auth.signOut().then(() => {
-        history.replace("/");
-      });
-      return null;
-    },
-    path: "/logout",
+    component: SignOutComponent,
+    path: "/signout",
     exact: true,
     type: ROUTE_TYPE.PRIVATE,
     hidden: async () => !(await isAuthExist()),
