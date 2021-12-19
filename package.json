@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^4.3.10",
+    "aws-amplify-react": "^5.1.9",
     "craco": "^0.0.3",
     "history": "5",
     "lodash": "^4.17.21",

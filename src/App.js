@@ -23,24 +23,23 @@ const isLocalhost = Boolean(
 );
 
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
-const [
-  localRedirectSignIn,
-  productionRedirectSignIn,
-] = awsConfig.oauth.redirectSignIn.split(",");
+const [localRedirectSignIn, productionRedirectSignIn] =
+  awsConfig.oauth.redirectSignIn.split(",");
 
-const [
-  localRedirectSignOut,
-  productionRedirectSignOut,
-] = awsConfig.oauth.redirectSignOut.split(",");
-
+const [localRedirectSignOut, productionRedirectSignOut] =
+  awsConfig.oauth.redirectSignOut.split(",");
 
 Amplify.configure({
   ...awsConfig,
   oauth: {
     ...awsConfig.oauth,
-    redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
-    redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
-  }
+    redirectSignIn: isLocalhost
+      ? localRedirectSignIn
+      : productionRedirectSignIn,
+    redirectSignOut: isLocalhost
+      ? localRedirectSignOut
+      : productionRedirectSignOut,
+  },
 });
 
 // GCP Cloud Auth: https://console.cloud.google.com/apis/credentials?project=chiron-335523&supportedpurview=project
@@ -54,18 +53,30 @@ function App() {
       <Layout>
         <Suspense fallback={<span>Loading</span>}>
           <Routes>
-            {flatten(Object.keys(groupedRoutes).map((routeType) => {
-              const routeTypeData = Object.values(ROUTE_TYPE).find(
-                (item) => item.name === routeType
-              );
-              return groupedRoutes[routeType].map((route) => (
-                    <Route
-                      key={route.name}
-                      element={React.createElement(routeTypeData.withAuth ? withCustomAWSAuthenticator(route.component) : route.component)}
-                      path={route.path}
-                    />
-                  ))
-            }))}
+            {flatten(
+              Object.keys(groupedRoutes).map((routeType) => {
+                const routeTypeData = Object.values(ROUTE_TYPE).find(
+                  (item) => item.name === routeType
+                );
+                return groupedRoutes[routeType].map((route) => (
+                  <Route
+                    key={route.name}
+                    element={React.createElement(
+                      routeTypeData.withAuth
+                        ? withCustomAWSAuthenticator(route.component)
+                        : route.component,
+                      {
+                        federated: {
+                          google_client_id:
+                            "449947666042-r4otuk637ahdui9ucn5kpllu6v0sttcj.apps.googleusercontent.com",
+                        },
+                      }
+                    )}
+                    path={route.path}
+                  />
+                ));
+              })
+            )}
             {errorRoutes.map((route) => (
               <Route
                 key={route.name}

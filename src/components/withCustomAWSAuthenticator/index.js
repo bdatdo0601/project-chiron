@@ -3,6 +3,8 @@ import { Hub } from "@aws-amplify/core";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { get } from "lodash";
 
+import '@aws-amplify/ui-react/styles.css';
+
 export const useAuthenticateEffect = () => {
   useEffect(() => {
     Hub.listen("auth", (res) => {
@@ -18,4 +20,6 @@ export const useAuthenticateEffect = () => {
   }, []);
 };
 
-export default withAuthenticator;
+const withCustomAuthenticator = (Component) => withAuthenticator(Component, false)
+
+export default withCustomAuthenticator;

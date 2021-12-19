@@ -10,7 +10,7 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your Chiron Platform Verification Code",
+    "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -44,7 +44,7 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
+    "useDefault": "defaultSocial",
     "usernameAttributes": [
         "email"
     ],
@@ -71,6 +71,6 @@
     "userPoolGroups": false,
     "adminQueries": true,
     "adminQueryGroup": "Admins",
-    "authProviders": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\",\"https://chiron.datbdo.com/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://chiron.datbdo.com/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\",\"https://chiron.datbdo.com/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://chiron.datbdo.com/\"]}",
+    "authProviders": []
 }
