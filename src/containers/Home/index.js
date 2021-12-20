@@ -16,7 +16,7 @@ const Home = () => {
       <h2 className="text-4xl my-4 z-10 text-white">
         Just another simple platform to build your portfolio
       </h2>
-      <h4 className="text-2xl my-2 z-10 text-white">Build with ❤️ and collaborative efforts from your favorite communites</h4>
+      <h4 className="text-2xl my-2 z-10 text-white">Build with ❤️ (and also collaborative efforts from your favorite communites)</h4>
       <h5 className="text-xl my-1 z-10 text-white">Coming Soon...</h5>
       <h6 className="text-lg my-2 z-10 underline text-blue-400"><a href="https://datdo.notion.site/Proposal-Project-Chiron-4adda27de97d40e18987350b554b8fbb">Checkout our Vision</a></h6>
     </div>
