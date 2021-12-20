@@ -2,16 +2,31 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSignInAlt,
+  faSignOutAlt,
+  faBars,
+  faArrowDown,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
+import { get } from "lodash";
+import { useNot } from "react-hooks-helper";
+import Button from "rsuite/Button";
+import IconButton from "rsuite/IconButton";
+import ButtonGroup from "rsuite/ButtonGroup";
+import Whisper from "rsuite/Whisper";
+import Popover from "rsuite/Popover";
+import Dropdown from "rsuite/Dropdown";
 
 import { WEBSITE_TITLE } from "../../utils/constants";
 import { useAuthenticatedUser } from "../../components/withCustomAWSAuthenticator";
-import { get } from "lodash";
+import MenuDrawer from "./MenuDrawer";
 
 export default function MainLayout({ children }) {
   const navigate = useNavigate();
   const { isAuthenticated, ...user } = useAuthenticatedUser();
+  const [isDrawerOpen, toggleDrawer] = useNot(false);
   return (
     <>
       <Helmet>
@@ -23,25 +38,65 @@ export default function MainLayout({ children }) {
           content="Helping you to build your portfolio"
         />
       </Helmet>
+      <MenuDrawer isOpen={isDrawerOpen} onClose={toggleDrawer} width="20vw" />
       <main>
-        <div className="absolute w-screen z-10 grid-cols-2">
-          <div className="p-4 text-right col-span-6 flex-auto">
+        <div className="absolute w-screen z-10 flex">
+          <div className="p-4 text-left">
+            <button className="text-3xl ml-4 text-white" onClick={toggleDrawer}>
+              <FontAwesomeIcon icon={faBars} />
+            </button>
+          </div>
+          <div className="p-4 text-right flex-1">
             {isAuthenticated && (
-              <span className="mx-2 border-2 py-2 px-8 rounded-lg text-white">
-                Hello, {get(user, "email")}
-              </span>
+              <ButtonGroup>
+                <Button appearance="primary">
+                  <FontAwesomeIcon icon={faUser} className="mr-2" />{" "}
+                  {get(user, "email")}
+                </Button>
+                <Whisper
+                  placement="bottomEnd"
+                  trigger="click"
+                  speaker={({ onClose, left, top, className }, ref) => {
+                    const handleSelect = () => {
+                      onClose();
+                    };
+                    return (
+                      <Popover
+                        ref={ref}
+                        className={className}
+                        style={{ left, top }}
+                        full
+                      >
+                        <Dropdown.Menu onSelect={handleSelect}>
+                          <Dropdown.Item>
+                            <button
+                              className="w-100 bg-red-600 py-2 px-8 rounded-lg text-white"
+                              onClick={() => {
+                                navigate("/signout");
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faSignOutAlt}
+                                className="mr-2"
+                              />{" "}
+                              Sign Out
+                            </button>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Popover>
+                    );
+                  }}
+                >
+                  <IconButton
+                    appearance="primary"
+                    icon={
+                      <FontAwesomeIcon icon={faArrowDown} className="mr-2" />
+                    }
+                  />
+                </Whisper>
+              </ButtonGroup>
             )}
-            {isAuthenticated ? (
-              <button
-                className="w-100 bg-blue-600 py-2 px-8 rounded-lg text-white"
-                onClick={() => {
-                  navigate("/signout");
-                }}
-              >
-                Sign Out{" "}
-                <FontAwesomeIcon icon={faSignOutAlt} className="ml-2" />
-              </button>
-            ) : (
+            {!isAuthenticated && (
               <button
                 className="w-100 bg-blue-600 py-2 px-8 rounded-lg text-white"
                 onClick={() => {
