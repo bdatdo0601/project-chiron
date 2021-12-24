@@ -27,15 +27,19 @@ const Navbar = ({ toggleDrawer }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, ...user } = useAuthenticatedUser();
-  
-  const decoratedHeader = "bg-blue-500 shadow-lg"
+
+  const decoratedHeader = "bg-blue-900 shadow-lg";
 
   if (["/signin", "/signout"].includes(get(location, "pathname", "/"))) {
     return null;
   }
 
   return (
-    <div className={`absolute w-screen z-10 flex ${["/"].includes(get(location, "pathname", "/")) ? "" : decoratedHeader} `}>
+    <div
+      className={`absolute w-screen z-10 flex ${
+        ["/"].includes(get(location, "pathname", "/")) ? "" : decoratedHeader
+      } `}
+    >
       <div className="p-4 text-left">
         <button className="text-3xl ml-4 text-white" onClick={toggleDrawer}>
           <FontAwesomeIcon icon={faBars} />
@@ -44,7 +48,12 @@ const Navbar = ({ toggleDrawer }) => {
       <div className="p-4 text-right flex-1">
         {isAuthenticated && (
           <ButtonGroup>
-            <Button appearance="primary">
+            <Button
+              appearance="primary"
+              onClick={() => {
+                navigate("/user");
+              }}
+            >
               <FontAwesomeIcon icon={faUser} className="mr-2" />{" "}
               {get(user, "email")}
             </Button>

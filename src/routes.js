@@ -7,9 +7,11 @@ import {
   faSignInAlt,
   faSignOutAlt,
   faHome,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Home from "./containers/Home";
+import User from "./containers/User";
 
 export const ROUTE_TYPE = {
   PUBLIC: {
@@ -20,15 +22,6 @@ export const ROUTE_TYPE = {
     name: "Management",
     withAuth: true,
   },
-};
-
-const isAuthExist = async () => {
-  try {
-    const user = await Auth.currentAuthenticatedUser();
-    return user !== null;
-  } catch (err) {
-    return false;
-  }
 };
 
 const ErrorPage = () => {
@@ -54,7 +47,6 @@ ErrorPage.propTypes = {};
 const SignOutComponent = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("here");
     Auth.signOut().then(() => {
       navigate("/", { replace: true });
     });
@@ -82,7 +74,8 @@ export const errorRoutes = [
 
 const routes = [
   {
-    name: "Home",
+    label: "Home",
+    value: "Home",
     icon: <FontAwesomeIcon icon={faHome} />,
     component: Home,
     path: "/",
@@ -90,22 +83,34 @@ const routes = [
     type: ROUTE_TYPE.PUBLIC,
   },
   {
-    name: "Login",
+    label: "User Profile",
+    value: "User Profile",
+    icon: <FontAwesomeIcon icon={faUser} />,
+    component: User,
+    path: "/user",
+    exact: true,
+    type: ROUTE_TYPE.PRIVATE,
+    hidden: true,
+  },
+  {
+    label: "Login",
+    value: "Login",
     icon: <FontAwesomeIcon icon={faSignInAlt} />,
     component: SignInComponent,
     path: "/signin",
     exact: true,
     type: ROUTE_TYPE.PRIVATE,
-    hidden: async () => isAuthExist(),
+    hidden: true,
   },
   {
-    name: "Logout",
+    label: "Logout",
+    value: "Logout",
     icon: <FontAwesomeIcon icon={faSignOutAlt} />,
     component: SignOutComponent,
     path: "/signout",
     exact: true,
     type: ROUTE_TYPE.PRIVATE,
-    hidden: async () => !(await isAuthExist()),
+    hidden: true,
   },
 ];
 

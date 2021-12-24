@@ -63,7 +63,7 @@ function App() {
                 );
                 return groupedRoutes[routeType].map((route) => (
                   <Route
-                    key={route.name}
+                    key={route.label}
                     element={React.createElement(
                       routeTypeData.withAuth
                         ? withCustomAWSAuthenticator(route.component)
