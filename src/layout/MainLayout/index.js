@@ -9,7 +9,7 @@ import {
   faArrowDown,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { get } from "lodash";
 import { useNot } from "react-hooks-helper";
 import Button from "rsuite/Button";
@@ -23,9 +23,88 @@ import { WEBSITE_TITLE } from "../../utils/constants";
 import { useAuthenticatedUser } from "../../components/withCustomAWSAuthenticator";
 import MenuDrawer from "./MenuDrawer";
 
-export default function MainLayout({ children }) {
+const Navbar = ({ toggleDrawer }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated, ...user } = useAuthenticatedUser();
+  
+  const decoratedHeader = "bg-blue-500 shadow-lg"
+
+  if (["/signin", "/signout"].includes(get(location, "pathname", "/"))) {
+    return null;
+  }
+
+  return (
+    <div className={`absolute w-screen z-10 flex ${["/"].includes(get(location, "pathname", "/")) ? "" : decoratedHeader} `}>
+      <div className="p-4 text-left">
+        <button className="text-3xl ml-4 text-white" onClick={toggleDrawer}>
+          <FontAwesomeIcon icon={faBars} />
+        </button>
+      </div>
+      <div className="p-4 text-right flex-1">
+        {isAuthenticated && (
+          <ButtonGroup>
+            <Button appearance="primary">
+              <FontAwesomeIcon icon={faUser} className="mr-2" />{" "}
+              {get(user, "email")}
+            </Button>
+            <Whisper
+              placement="bottomEnd"
+              trigger="click"
+              speaker={({ onClose, left, top, className }, ref) => {
+                const handleSelect = () => {
+                  onClose();
+                };
+                return (
+                  <Popover
+                    ref={ref}
+                    className={className}
+                    style={{ left, top }}
+                    full
+                  >
+                    <Dropdown.Menu onSelect={handleSelect}>
+                      <Dropdown.Item>
+                        <button
+                          className="w-100 bg-red-600 py-2 px-8 rounded-lg text-white"
+                          onClick={() => {
+                            navigate("/signout");
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faSignOutAlt}
+                            className="mr-2"
+                          />{" "}
+                          Sign Out
+                        </button>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Popover>
+                );
+              }}
+            >
+              <IconButton
+                appearance="primary"
+                icon={<FontAwesomeIcon icon={faArrowDown} className="mr-2" />}
+              />
+            </Whisper>
+          </ButtonGroup>
+        )}
+        {!isAuthenticated && (
+          <button
+            className="w-100 bg-blue-600 py-2 px-8 rounded-lg text-white"
+            onClick={() => {
+              navigate("/signin");
+            }}
+          >
+            <FontAwesomeIcon icon={faSignInAlt} className="mr-2" /> Sign In
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default function MainLayout({ children }) {
   const [isDrawerOpen, toggleDrawer] = useNot(false);
   return (
     <>
@@ -39,78 +118,8 @@ export default function MainLayout({ children }) {
         />
       </Helmet>
       <MenuDrawer isOpen={isDrawerOpen} onClose={toggleDrawer} width="20vw" />
-      <main>
-        <div className="absolute w-screen z-10 flex">
-          <div className="p-4 text-left">
-            <button className="text-3xl ml-4 text-white" onClick={toggleDrawer}>
-              <FontAwesomeIcon icon={faBars} />
-            </button>
-          </div>
-          <div className="p-4 text-right flex-1">
-            {isAuthenticated && (
-              <ButtonGroup>
-                <Button appearance="primary">
-                  <FontAwesomeIcon icon={faUser} className="mr-2" />{" "}
-                  {get(user, "email")}
-                </Button>
-                <Whisper
-                  placement="bottomEnd"
-                  trigger="click"
-                  speaker={({ onClose, left, top, className }, ref) => {
-                    const handleSelect = () => {
-                      onClose();
-                    };
-                    return (
-                      <Popover
-                        ref={ref}
-                        className={className}
-                        style={{ left, top }}
-                        full
-                      >
-                        <Dropdown.Menu onSelect={handleSelect}>
-                          <Dropdown.Item>
-                            <button
-                              className="w-100 bg-red-600 py-2 px-8 rounded-lg text-white"
-                              onClick={() => {
-                                navigate("/signout");
-                              }}
-                            >
-                              <FontAwesomeIcon
-                                icon={faSignOutAlt}
-                                className="mr-2"
-                              />{" "}
-                              Sign Out
-                            </button>
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Popover>
-                    );
-                  }}
-                >
-                  <IconButton
-                    appearance="primary"
-                    icon={
-                      <FontAwesomeIcon icon={faArrowDown} className="mr-2" />
-                    }
-                  />
-                </Whisper>
-              </ButtonGroup>
-            )}
-            {!isAuthenticated && (
-              <button
-                className="w-100 bg-blue-600 py-2 px-8 rounded-lg text-white"
-                onClick={() => {
-                  navigate("/signin");
-                }}
-              >
-                <FontAwesomeIcon icon={faSignInAlt} className="mr-2" /> Sign In
-              </button>
-            )}
-          </div>
-        </div>
-
-        {children}
-      </main>
+      <Navbar toggleDrawer={toggleDrawer} />
+      <main>{children}</main>
     </>
   );
 }

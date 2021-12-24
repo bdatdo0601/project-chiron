@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import Drawer from "rsuite/Drawer";
 
 const MenuDrawer = ({ isOpen, onClose, ...props }) => {
-  console.log(isOpen);
   return (
-    <Drawer open={isOpen} onClose={onClose} placement="left" size="xs">
+    <Drawer open={isOpen} onClose={onClose} placement="left" size="xs" {...props}>
       <Drawer.Header>
         <Drawer.Title>
           <span className="text-2xl font-bold">Project Chiron</span>
