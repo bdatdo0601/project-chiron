@@ -11,7 +11,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Home from "./containers/Home";
-import User from "./containers/User";
+import ProfilePage from "./containers/ProfilePage";
+import ErrorPage from "./containers/ErrorPage";
 
 export const ROUTE_TYPE = {
   PUBLIC: {
@@ -24,25 +25,6 @@ export const ROUTE_TYPE = {
   },
 };
 
-const ErrorPage = () => {
-  const navigate = useNavigate();
-  return (
-    <>
-      <div style={{ color: "red" }}>404 - Error not found</div>
-
-      <button
-        color="primary"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Go Home
-      </button>
-    </>
-  );
-};
-
-ErrorPage.propTypes = {};
 
 const SignOutComponent = () => {
   const navigate = useNavigate();
@@ -83,11 +65,11 @@ const routes = [
     type: ROUTE_TYPE.PUBLIC,
   },
   {
-    label: "User Profile",
-    value: "User Profile",
+    label: "Profile Page",
+    value: "Profile Page",
     icon: <FontAwesomeIcon icon={faUser} />,
-    component: User,
-    path: "/user",
+    component: ProfilePage,
+    path: "/profile",
     exact: true,
     type: ROUTE_TYPE.PRIVATE,
     hidden: true,

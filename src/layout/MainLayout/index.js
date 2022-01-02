@@ -36,7 +36,7 @@ const Navbar = ({ toggleDrawer }) => {
 
   return (
     <div
-      className={`absolute w-screen z-10 flex ${
+      className={`fixed w-screen z-10 flex ${
         ["/"].includes(get(location, "pathname", "/")) ? "" : decoratedHeader
       } `}
     >
@@ -51,7 +51,7 @@ const Navbar = ({ toggleDrawer }) => {
             <Button
               appearance="primary"
               onClick={() => {
-                navigate("/user");
+                navigate("/profile");
               }}
             >
               <FontAwesomeIcon icon={faUser} className="mr-2" />{" "}
