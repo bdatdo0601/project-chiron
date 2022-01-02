@@ -48,7 +48,8 @@ export const useAuthenticatedUser = () => {
     () => ({
       isAuthenticated: has(authUser, "signInUserSession"),
       ...get(authUser, "attributes", {}),
-      ...get(authUser, "signInUserSession.idToken.payload", {})
+      ...get(authUser, "signInUserSession.idToken.payload", {}),
+      Username: get(authUser, "username")
     }),
     [authUser]
   );
