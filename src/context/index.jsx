@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { AmplifyProvider, createTheme } from "@aws-amplify/ui-react";
 
 import { LayoutContextProvider } from "./layout";
+import "@aws-amplify/ui-react/styles.css";
+import "./index.css";
+
 
 /*
  Primary #3183c5 - #315a83
