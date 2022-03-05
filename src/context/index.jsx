@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { AmplifyProvider, createTheme } from "@aws-amplify/ui-react";
 
 import { LayoutContextProvider } from "./layout";
-import "@aws-amplify/ui-react/styles.css";
 import "./index.css";
 
 

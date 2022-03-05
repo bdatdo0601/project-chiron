@@ -1,3 +1,4 @@
+@import "@aws-amplify/ui-react/styles.css";
 [data-amplify-authenticator] {
   max-width: none;
 }

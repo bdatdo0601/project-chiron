@@ -22,7 +22,7 @@
     "react-helmet": "^6.1.0",
     "react-hooks-helper": "^1.6.0",
     "react-router-dom": "6",
-    "react-tsparticles": "^1.37.5",
+    "react-tsparticles": "^1.41.6",
     "rsuite": "^5.4.0",
     "tsparticles": "^1.37.5",
     "web-vitals": "^1.0.1"
