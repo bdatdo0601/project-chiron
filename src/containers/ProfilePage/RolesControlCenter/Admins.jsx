@@ -99,7 +99,7 @@ const ActionCellRenderer = ({ userInfo, currentUser }) => {
   }
   return (
     <span>
-      <button className="text-red-500">Delete</button>
+      <button className="text-blue-500">Update Role(s)</button>
     </span>
   );
 };
@@ -207,7 +207,7 @@ const AdminsControlCenter = () => {
             )}
           </Cell>
         </Column>
-        <Column width={120} fixed="right">
+        {/* <Column width={120} fixed="right">
           <HeaderCell>Action</HeaderCell>
 
           <Cell>
@@ -219,7 +219,7 @@ const AdminsControlCenter = () => {
               />
             )}
           </Cell>
-        </Column>
+        </Column> */}
       </Table>
     </div>
   );

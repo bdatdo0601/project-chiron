@@ -16,11 +16,9 @@ const Home = () => {
         Project Chiron 🏹 
       </h1>
       <h2 className="text-4xl my-4 text-white">
-        Just another simple platform to build your portfolio
+        A different kind of learning platform
       </h2>
-      <h4 className="text-2xl my-2 text-white">Build with ❤️ (and also collaborative efforts from your favorite communites)</h4>
-      <h5 className="text-xl my-1 text-white">Coming Soon...</h5>
-      <h6 className="text-lg my-2 underline"><a className="text-blue-400" href="https://datdo.notion.site/Proposal-Project-Chiron-4adda27de97d40e18987350b554b8fbb">Checkout our Vision</a></h6>
+      <h6 className="text-xl my-2 underline"><a className="text-blue-400" href="https://datdo.notion.site/Proposal-Project-Chiron-4adda27de97d40e18987350b554b8fbb">Coming Soon... ?</a></h6>
     </div>
   );
 };

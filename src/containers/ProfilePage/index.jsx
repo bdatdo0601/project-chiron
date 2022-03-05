@@ -9,7 +9,7 @@ import RolesControlCenter from "./RolesControlCenter";
 
 const UserHeader = ({ roles, user }) => {
   return (
-    <div className="w-full border-4 border-black py-2 px-8 flex">
+    <div className="w-full border-4 border-black py-1 px-4 flex">
       <div className="flex-initial mr-8">
         <img
           className="h-32 rounded-full"
@@ -21,9 +21,9 @@ const UserHeader = ({ roles, user }) => {
         />
       </div>
       <div className="grid content-center">
-        <h2 className="text-xl">Hello,</h2>
-        <h1 className="text-3xl">{get(user, "email")}</h1>
-        <h3 className="text-lg">Roles: {roles.join(", ")}</h3>
+        <h2 className="text-lg">Hello,</h2>
+        <h1 className="text-xl">{get(user, "email")}</h1>
+        <h3 className="text-sm italic">Roles: {roles.join(", ")}</h3>
       </div>
     </div>
   );

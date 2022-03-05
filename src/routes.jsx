@@ -8,6 +8,9 @@ import {
   faSignOutAlt,
   faHome,
   faUser,
+  faLink,
+  faNetworkWired,
+  faBookmark
 } from "@fortawesome/free-solid-svg-icons";
 
 import Home from "./containers/Home";
@@ -58,16 +61,43 @@ const routes = [
   {
     label: "Home",
     value: "Home",
-    icon: <FontAwesomeIcon icon={faHome} />,
+    icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faHome} />,
     component: Home,
     path: "/",
     exact: true,
     type: ROUTE_TYPE.PUBLIC,
   },
+  // {
+  //   label: "Technical Board",
+  //   value: "Technical Board",
+  //   icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faBookmark} />,
+  //   component: () => <div>Technical Board</div>,
+  //   path: "/technical-board",
+  //   exact: true,
+  //   type: ROUTE_TYPE.PUBLIC,
+  // },
+  // {
+  //   label: "Links Curator",
+  //   value: "Links Curator",
+  //   icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faLink} />,
+  //   component: () => <div>Links Curator</div>,
+  //   path: "/link-curator",
+  //   exact: true,
+  //   type: ROUTE_TYPE.PUBLIC,
+  // },
+  // {
+  //   label: "Communities Network",
+  //   value: "Communities Network",
+  //   icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faNetworkWired} />,
+  //   component: () => <div>Communities Network</div>,
+  //   path: "/community-network",
+  //   exact: true,
+  //   type: ROUTE_TYPE.PUBLIC,
+  // },
   {
     label: "Profile Page",
     value: "Profile Page",
-    icon: <FontAwesomeIcon icon={faUser} />,
+    icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faUser} />,
     component: ProfilePage,
     path: "/profile",
     exact: true,
@@ -77,7 +107,7 @@ const routes = [
   {
     label: "Login",
     value: "Login",
-    icon: <FontAwesomeIcon icon={faSignInAlt} />,
+    icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faSignInAlt} />,
     component: SignInComponent,
     path: "/signin",
     exact: true,
@@ -87,7 +117,7 @@ const routes = [
   {
     label: "Logout",
     value: "Logout",
-    icon: <FontAwesomeIcon icon={faSignOutAlt} />,
+    icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faSignOutAlt} />,
     component: SignOutComponent,
     path: "/signout",
     exact: true,

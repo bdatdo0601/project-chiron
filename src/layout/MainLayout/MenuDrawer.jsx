@@ -20,7 +20,7 @@ const MenuDrawer = ({ isOpen, onClose, ...props }) => {
     >
       <Drawer.Header>
         <Drawer.Title>
-          <Link to="/">
+          <Link to="/" onClick={onClose}>
             <span className="text-2xl font-bold">Project Chiron</span>
           </Link>
         </Drawer.Title>
@@ -35,19 +35,22 @@ const MenuDrawer = ({ isOpen, onClose, ...props }) => {
             if (data.hidden) {
               return null;
             }
+            const Icon = data.icon;
             return (
               <div
-                className={`font-bold ${
+                className={`font-bold w-full ${
                   location.pathname === data.path ? "text-blue-700" : ""
                 } text-xl`}
                 key={data.label}
+                style={{}}
               >
-                {data.label}
+                <span style={{ marginRight: 4 }}>{Icon && <Icon />}</span> {data.label}
               </div>
             );
           }}
           onSelect={(data) => {
             navigate(data.path);
+            onClose();
           }}
         />
       </Drawer.Body>
