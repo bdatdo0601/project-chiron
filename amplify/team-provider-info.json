@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "resumefixerupperbd05280c": {}
+        "resumefixerupperbd05280c": {},
+        "userPoolGroups": {}
       },
       "function": {
         "AdminQueriesc3b3a226": {
