@@ -14,7 +14,8 @@
     "categories": {
       "auth": {
         "resumefixerupperbd05280c": {},
-        "userPoolGroups": {}
+        "userPoolGroups": {},
+        "true": {}
       },
       "function": {
         "AdminQueriesc3b3a226": {
