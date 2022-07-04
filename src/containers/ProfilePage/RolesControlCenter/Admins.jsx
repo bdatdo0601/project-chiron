@@ -2,12 +2,16 @@ import { get } from "lodash";
 import React, { useMemo } from "react";
 import { Table, Column, Cell, HeaderCell } from "rsuite-table";
 import { useAuthenticatedUser } from "../../../components/withCustomAWSAuthenticator";
-import { useAdminQueriesAPI } from "../../../utils/awsAPI";
+import {
+  useAdminQueriesAPI,
+  usePostAdminQueriesAPI,
+} from "../../../utils/awsAPI";
 import Loader from "rsuite/Loader";
 import Checkbox from "rsuite/Checkbox";
 
 import aws_config from "../../../aws-exports";
 import { useCallback } from "react";
+import { Button, List, Modal, TagPicker } from "rsuite";
 
 const ListUsersConfig = {
   responseMapper: (data) =>
@@ -97,17 +101,14 @@ const ActionCellRenderer = ({ userInfo, currentUser }) => {
   if (isDisabled) {
     return <span>Self (No Action)</span>;
   }
-  return (
-    <span>
-      <button className="text-blue-500">Update Role(s)</button>
-    </span>
-  );
+  return <span />;
 };
 
 const AdminsControlCenter = () => {
   const [checkedItems, setCheckedItems] = React.useState([]);
   const { ...user } = useAuthenticatedUser();
-  const [data, loading, listErrors] = useAdminQueriesAPI(
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [data, loading, listErrors, refetch] = useAdminQueriesAPI(
     "get",
     "/listUsers",
     null,
@@ -118,6 +119,11 @@ const AdminsControlCenter = () => {
     "/listGroups",
     null,
     ListGroupsConfig
+  );
+  const [addUserToGroup, isAddingUserToGroup] =
+    usePostAdminQueriesAPI("/addUserToGroup");
+  const [removeUserFromGroup, isRemovingUserFromGroup] = usePostAdminQueriesAPI(
+    "/removeUserFromGroup"
   );
   const isAllChecked = useMemo(() => {
     if (checkedItems.length === data.length - 1) {
@@ -157,6 +163,51 @@ const AdminsControlCenter = () => {
     });
   }, []);
 
+  const [groupToAdd, setGroupToAdd] = React.useState([]);
+  const [groupToRemove, setGroupToRemove] = React.useState([]);
+  const groupPickerData = useMemo(
+    () =>
+      groups.map((item) => ({ label: item.GroupName, value: item.GroupName })),
+    [groups]
+  );
+  const handleClose = useCallback(() => {
+    setCheckedItems([]);
+    setIsModalOpen(false);
+    setGroupToAdd([]);
+    setGroupToRemove([]);
+  }, []);
+
+  const handleUpdateRoles = useCallback(async () => {
+    try {
+      await Promise.allSettled(
+        checkedItems.map(async (username) => {
+          await Promise.allSettled(
+            groupToAdd.map(async (groupname) => {
+              await addUserToGroup({ username, groupname });
+            })
+          );
+          await Promise.allSettled(
+            groupToRemove.map(async (groupname) => {
+              await removeUserFromGroup({ username, groupname });
+            })
+          );
+        })
+      );
+      await refetch();
+      await handleClose();
+    } catch (err) {
+      console.error("Unable to update roles", err);
+    }
+  }, [
+    handleClose,
+    groupToRemove,
+    groupToAdd,
+    checkedItems,
+    addUserToGroup,
+    removeUserFromGroup,
+    refetch,
+  ]);
+
   if (listErrors || listGroupErrors) {
     return (
       <div className="text-red-500">
@@ -164,10 +215,69 @@ const AdminsControlCenter = () => {
       </div>
     );
   }
-
   return (
-    <div className="">
-      <Table loading={loading || groupLoading} virtualized data={data}>
+    <div style={{ minHeight: "500px" }}>
+      <Modal open={isModalOpen} onClose={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Update Roles</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h6 className="my-2">Roles to Add</h6>
+          <TagPicker
+            block
+            data={groupPickerData}
+            onChange={(newData) => {
+              setGroupToAdd(newData);
+            }}
+            disabledItemValues={groupToRemove}
+          />
+          <h6 className="my-2">Roles to Remove</h6>
+          <TagPicker
+            block
+            data={groupPickerData}
+            onChange={(newData) => {
+              setGroupToRemove(newData);
+            }}
+            disabledItemValues={groupToAdd}
+          />
+          <h6 className="my-2">User affected</h6>
+          <List>
+            {checkedItems.map((item) => (
+              <List.Item key={item}>{item}</List.Item>
+            ))}
+          </List>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={handleUpdateRoles}
+            disabled={isAddingUserToGroup && isRemovingUserFromGroup}
+            loading={isAddingUserToGroup && isRemovingUserFromGroup}
+            appearance="primary"
+          >
+            Update
+          </Button>
+          <Button onClick={handleClose} appearance="subtle">
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <div className="my-2">
+        <Button
+          appearance="primary"
+          disabled={checkedItems.length === 0}
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          Update Roles
+        </Button>
+      </div>
+      <Table
+        loading={loading || groupLoading}
+        virtualized
+        data={data}
+        height={500}
+      >
         <Column width={50} align="center">
           <HeaderCell style={{ padding: 0 }}>
             <div style={{ lineHeight: "40px" }}>
@@ -207,7 +317,7 @@ const AdminsControlCenter = () => {
             )}
           </Cell>
         </Column>
-        {/* <Column width={120} fixed="right">
+        <Column width={120} fixed="right">
           <HeaderCell>Action</HeaderCell>
 
           <Cell>
@@ -219,7 +329,7 @@ const AdminsControlCenter = () => {
               />
             )}
           </Cell>
-        </Column> */}
+        </Column>
       </Table>
     </div>
   );

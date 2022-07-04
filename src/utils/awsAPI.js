@@ -12,6 +12,47 @@ const DefaultAdminQueriesConfig = {
   // fetchAll: true
 };
 
+export const usePostAdminQueriesAPI = (path) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const requestFn = useCallback(
+    async (postBody) => {
+      try {
+        setLoading(true);
+        const requestObj = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${(await Auth.currentSession())
+              .getAccessToken()
+              .getJwtToken()}`,
+          },
+          body: postBody,
+        };
+        const response = await API.post(
+          ADMIN_QUERIES_API_NAME,
+          path,
+          requestObj
+        );
+
+        setLoading(false);
+        setError(null);
+        return response;
+      } catch (err) {
+        const errorMapper = get(config, "errorMapper", (data) =>
+          get(data, "message", "Error: Unknown")
+        );
+        setLoading(false);
+        setError(errorMapper(err));
+        return null;
+      }
+    },
+    [path]
+  );
+
+  return [requestFn, loading, error];
+};
+
 export const useAdminQueriesAPI = (
   type,
   path,
@@ -27,6 +68,7 @@ export const useAdminQueriesAPI = (
   const fetchMore = useCallback(async () => {
     try {
       setLoading(true);
+      setResponseData([]);
       const dataMapper = get(config, "responseMapper", (data) => [data]);
       const requestObj = {
         ...(requestData || {}),
