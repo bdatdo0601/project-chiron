@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Auth } from "@aws-amplify/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +10,7 @@ import {
   faUser,
   faLink,
   faNetworkWired,
-  faBookmark
+  faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Home from "./containers/Home";
@@ -27,7 +27,6 @@ export const ROUTE_TYPE = {
     withAuth: true,
   },
 };
-
 
 const SignOutComponent = () => {
   const navigate = useNavigate();
@@ -64,6 +63,22 @@ const routes = [
     icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faHome} />,
     component: Home,
     path: "/",
+    exact: true,
+    type: ROUTE_TYPE.PUBLIC,
+  },
+  {
+    label: "Best of Viet Tech",
+    value: "Home",
+    icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faBookmark} />,
+    component: () => {
+      const navigate = useNavigate();
+      useEffect(() => {
+        window.open("https://www.viettech.group");
+        navigate("/")
+      }, []);
+      return null;
+    },
+    path: "/bestofviettech",
     exact: true,
     type: ROUTE_TYPE.PUBLIC,
   },

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Drawer from "rsuite/Drawer";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Tree from "rsuite/Tree";
+import logo from "../../assets/VietTechMainLogoBlack.png";
 
 import routes from "../../routes";
 
@@ -18,15 +19,12 @@ const MenuDrawer = ({ isOpen, onClose, ...props }) => {
       size="xs"
       {...props}
     >
-      <Drawer.Header>
-        <Drawer.Title>
+      <Drawer.Body style={{ paddingTop: 42, paddingLeft: 24, paddingRight: 0 }}>
+        <span style={{ marginTop: 24 }}>
           <Link to="/" onClick={onClose}>
-            <span className="text-2xl font-bold">Project Chiron</span>
+            <img src={logo} alt="Viet Tech" style={{ height: 64 }} />
           </Link>
-        </Drawer.Title>
-        <Drawer.Actions />
-      </Drawer.Header>
-      <Drawer.Body style={{ paddingTop: 12, paddingLeft: 0, paddingRight: 0 }}>
+        </span>
         <Tree
           data={routes}
           ref={treeRef}
@@ -44,7 +42,8 @@ const MenuDrawer = ({ isOpen, onClose, ...props }) => {
                 key={data.label}
                 style={{}}
               >
-                <span style={{ marginRight: 4 }}>{Icon && <Icon />}</span> {data.label}
+                <span style={{ marginRight: 4 }}>{Icon && <Icon />}</span>{" "}
+                {data.label}
               </div>
             );
           }}
