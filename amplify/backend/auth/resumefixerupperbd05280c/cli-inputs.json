@@ -1,12 +1,16 @@
 {
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "resumefixerupperbd05280c_identitypool_28f89889",
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "resumebd05280c",
     "userPoolName": "resumefixerupperbd05280c_userpool_bd05280c",
     "autoVerifiedAttributes": [
-        "email"
+      "email"
     ],
     "mfaConfiguration": "OPTIONAL",
     "mfaTypes": [
-        "SMS Text Message"
+      "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -16,61 +20,62 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "email"
+      "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+      "email"
     ],
     "userpoolClientLambdaRole": "resumebd05280c_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "bd05280c",
+    "authSelections": "identityPoolAndUserPool",
     "resourceName": "resumefixerupperbd05280c",
-    "authSelections": "userPoolOnly",
-    "authRoleArn": {
-        "Fn::GetAtt": [
-            "AuthRole",
-            "Arn"
-        ]
-    },
-    "unauthRoleArn": {
-        "Fn::GetAtt": [
-            "UnauthRole",
-            "Arn"
-        ]
-    },
-    "useDefault": "defaultSocial",
-    "usernameAttributes": [
-        "email"
-    ],
-    "triggers": "{}",
-    "userPoolGroupList": [
-        "Admins",
-        "Mentors"
-    ],
     "serviceName": "Cognito",
-    "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "breakCircularDependency": true,
-    "permissions": [],
-    "dependsOn": [],
-    "hostedUI": true,
-    "hostedUIDomainName": "chiron-auth",
-    "authProvidersUserPool": [
-        "Google"
+    "useDefault": "defaultSocial",
+    "sharedId": "bd05280c",
+    "userPoolGroupList": [
+      "Admins",
+      "Mentors"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "userPoolGroups": false,
+    "usernameAttributes": [
+      "email"
+    ],
+    "usernameCaseSensitive": false,
     "adminQueries": true,
     "adminQueryGroup": "Admins",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\",\"https://chiron.datbdo.com/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"https://chiron.datbdo.com/\"]}",
+    "hostedUI": true,
+    "triggers": {},
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "useEnabledMfas": true,
+    "dependsOn": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "hostedUIDomainName": "resumefixerupper5b135649-5b135649",
+    "authProvidersUserPool": [
+      "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://chiron.viettech.group/signin/\",\"https://chiron.datbdo.com/signin/\",\"http://localhost:3000/signin/\"],\"LogoutURLs\":[\"https://chiron.viettech.group/signout/\",\"https://chiron.datbdo.com/signout/\",\"http://localhost:3000/signout/\"]}",
     "authProviders": []
+  }
 }

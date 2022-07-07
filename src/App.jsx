@@ -11,9 +11,7 @@ import withCustomAWSAuthenticator, {
   useAuthenticateEffect,
 } from "./components/withCustomAWSAuthenticator";
 import "./App.css";
-
-// import default style
-import "rsuite/styles/index.less"; // or 'rsuite/dist/rsuite.min.css'
+import "./App.less";
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||

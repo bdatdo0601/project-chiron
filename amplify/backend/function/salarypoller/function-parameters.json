@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "storage": {
+      "s3012d5ca4": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "googleSheetId",
+      "environmentVariableName": "GOOGLE_SHEET_ID"
+    },
+    {
+      "cloudFormationParameterName": "googleServiceAccountEmail",
+      "environmentVariableName": "GOOGLE_SERVICE_ACCOUNT_EMAIL"
+    }
+  ],
+  "secretNames": [
+    "GOOGLE_PRIVATE_KEY"
+  ]
+}

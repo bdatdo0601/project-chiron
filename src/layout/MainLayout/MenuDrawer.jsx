@@ -36,11 +36,11 @@ const MenuDrawer = ({ isOpen, onClose, ...props }) => {
             const Icon = data.icon;
             return (
               <div
-                className={`font-bold w-full ${
-                  location.pathname === data.path ? "text-blue-700" : ""
-                } text-xl`}
+                className={`font-bold w-full text-xl`}
                 key={data.label}
-                style={{}}
+                style={{
+                  color: location.pathname === data.path ? "#005DE3" : ""
+                }}
               >
                 <span style={{ marginRight: 4 }}>{Icon && <Icon />}</span>{" "}
                 {data.label}

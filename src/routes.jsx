@@ -8,14 +8,14 @@ import {
   faSignOutAlt,
   faHome,
   faUser,
-  faLink,
-  faNetworkWired,
   faBookmark,
+  faInfo
 } from "@fortawesome/free-solid-svg-icons";
 
 import Home from "./containers/Home";
 import ProfilePage from "./containers/ProfilePage";
 import ErrorPage from "./containers/ErrorPage";
+import Infographics from "./containers/Infographics";
 
 export const ROUTE_TYPE = {
   PUBLIC: {
@@ -68,7 +68,7 @@ const routes = [
   },
   {
     label: "Best of Viet Tech",
-    value: "Home",
+    value: "bestOfVietTech",
     icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faBookmark} />,
     component: () => {
       const navigate = useNavigate();
@@ -79,6 +79,15 @@ const routes = [
       return null;
     },
     path: "/bestofviettech",
+    exact: true,
+    type: ROUTE_TYPE.PUBLIC,
+  },
+  {
+    label: "Infographics",
+    value: "infographics",
+    icon: () => <FontAwesomeIcon style={{ width: 24 }} icon={faInfo} />,
+    component: Infographics,
+    path: "/infographics",
     exact: true,
     type: ROUTE_TYPE.PUBLIC,
   },

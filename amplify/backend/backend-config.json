@@ -13,6 +13,20 @@
           ]
         }
       ]
+    },
+    "salarypoller": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "s3012d5ca4",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ]
     }
   },
   "auth": {
@@ -52,7 +66,8 @@
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
-            "AppClientID"
+            "AppClientID",
+            "IdentityPoolId"
           ]
         }
       ]
@@ -109,7 +124,30 @@
   "storage": {
     "s3012d5ca4": {
       "service": "S3",
-      "providerPlugin": "awscloudformation"
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "resumefixerupperbd05280c",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "AdminsGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "MentorsGroupRole"
+          ]
+        }
+      ]
     }
   },
   "hosting": {

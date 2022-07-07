@@ -1,0 +1,25 @@
+{
+  "resourceName": "s3012d5ca4",
+  "bucketName": "resumefixeruppera6bc2ed59d1547d898cef7190078038",
+  "policyUUID": "e49af2c3",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {
+    "Admins": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "Mentors": [
+      "CREATE_AND_UPDATE",
+      "READ"
+    ]
+  }
+}

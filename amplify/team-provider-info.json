@@ -20,7 +20,14 @@
       "function": {
         "AdminQueriesc3b3a226": {
           "deploymentBucketName": "amplify-resumefixerupper-dev-212017-deployment",
-          "s3Key": "amplify-builds/AdminQueriesc3b3a226-6c624d7576423066536e-build.zip"
+          "s3Key": "amplify-builds/AdminQueriesc3b3a226-5476722b3747584c684d-build.zip"
+        },
+        "salarypoller": {
+          "googleSheetId": "1DS_p7kwoji4ill96kYe_1YDbBZu3Cp29p-UyadcFlMA",
+          "googleServiceAccountEmail": "chiron-accessor@chiron-335523.iam.gserviceaccount.com",
+          "secretsPathAmplifyAppId": "d3t9dkbm79oj67",
+          "deploymentBucketName": "amplify-resumefixerupper-dev-212017-deployment",
+          "s3Key": "amplify-builds/salarypoller-6846316f764967664733-build.zip"
         }
       }
     }

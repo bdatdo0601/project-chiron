@@ -3,3 +3,7 @@ type Todo @model {
   name: String!
   description: String
 }
+
+type AdminsCustomQuery @model @auth(rules: [{ allow: groups, groups: ["Admins"] }]) {
+  salarypoller: AWSJSON @function(name: "salarypoller-${env}")
+}

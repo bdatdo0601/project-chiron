@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,8 +27,12 @@ const Navbar = ({ toggleDrawer }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, ...user } = useAuthenticatedUser();
+  const isLanding = useMemo(
+    () => ["/"].includes(get(location, "pathname", "/")),
+    [location]
+  );
 
-  const decoratedHeader = "bg-blue-900 shadow-lg";
+  const decoratedHeader = "shadow-lg";
 
   if (["/signin", "/signout"].includes(get(location, "pathname", "/"))) {
     return null;
@@ -37,8 +41,11 @@ const Navbar = ({ toggleDrawer }) => {
   return (
     <div
       className={`fixed w-screen z-10 flex ${
-        ["/"].includes(get(location, "pathname", "/")) ? "" : decoratedHeader
+        isLanding ? "" : decoratedHeader
       } `}
+      style={{
+        background: isLanding ? "none" : "#05162C",
+      }}
     >
       <div className="p-4 text-left">
         <button className="text-3xl ml-4 text-white" onClick={toggleDrawer}>
@@ -47,7 +54,7 @@ const Navbar = ({ toggleDrawer }) => {
       </div>
       <div className="p-4 text-right flex-1">
         {isAuthenticated && (
-          <ButtonGroup>
+          <ButtonGroup color="blue">
             <Button
               appearance="primary"
               onClick={() => {
@@ -73,8 +80,9 @@ const Navbar = ({ toggleDrawer }) => {
                   >
                     <Dropdown.Menu onSelect={handleSelect}>
                       <Dropdown.Item>
-                        <button
-                          className="w-100 bg-red-600 py-2 px-8 rounded-lg text-white"
+                        <Button
+                          appearance="primary"
+                          color="red"
                           onClick={() => {
                             navigate("/signout");
                           }}
@@ -84,7 +92,7 @@ const Navbar = ({ toggleDrawer }) => {
                             className="mr-2"
                           />{" "}
                           Sign Out
-                        </button>
+                        </Button>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Popover>
@@ -99,14 +107,14 @@ const Navbar = ({ toggleDrawer }) => {
           </ButtonGroup>
         )}
         {!isAuthenticated && (
-          <button
-            className="w-100 bg-blue-600 py-2 px-8 rounded-lg text-white"
+          <Button
+            appearance="primary"
             onClick={() => {
               navigate("/signin");
             }}
           >
             <FontAwesomeIcon icon={faSignInAlt} className="mr-2" /> Sign In
-          </button>
+          </Button>
         )}
       </div>
     </div>

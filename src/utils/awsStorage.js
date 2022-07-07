@@ -3,8 +3,9 @@ import { Storage } from "@aws-amplify/storage";
 import { get } from "lodash";
 
 import awsconfig from "../aws-exports";
-import { PHOTO_UPLOAD_PREFIX } from "./constants";
 import { getImageMeta } from ".";
+
+const PHOTO_UPLOAD_PREFIX = "public/"
 
 export const fetchPhotos = async (prefix = PHOTO_UPLOAD_PREFIX) => {
   const list = await Storage.list(prefix);
