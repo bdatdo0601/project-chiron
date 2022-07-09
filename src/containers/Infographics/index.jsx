@@ -120,8 +120,8 @@ const Infographics = () => {
 
   const scatterData = useMemo(() => {
     const result = salaryData.map((item) => ({
-      x: Currency(item["TC in USD"], {}).value,
-      y: item["Country"],
+      y: Currency(item["TC in USD"], {}).value,
+      x: item["Country"],
       amount: parseInt(item["Year of Experiences"].split("-")[1].split(" ")[0]),
       label: `
       Company: ${item["Company Name"]}
@@ -130,7 +130,7 @@ const Infographics = () => {
       City: ${item["City"]}
       `,
     }));
-    return result;
+    return sortBy(result, "x");
   }, [salaryData]);
 
   if (loading) {
@@ -181,33 +181,34 @@ const Infographics = () => {
                   color: "#fafafa",
                 },
               }}
+              domainPadding={{ x: 100 }}
+
             >
               <VictoryAxis
                 crossAxis
-                label="TC in USD"
-                domain={[
-                  -50000,
-                  Math.max(...scatterData.map((item) => item.x)),
-                ]}
-                offsetX={150}
-                style={{
-                  axis: { stroke: "#fafafa" },
-                  axisLabel: { fontSize: 20, fill: "#fafafa" },
-                  ticks: { stroke: "#fafafa", size: 5 },
-                  tickLabels: { fontSize: 15, padding: 5, fill: "#fafafa" },
-                }}
-              />
-              <VictoryAxis
-                dependentAxis
-                height={1000}
-                standalone={false}
-                padding={{ top: 300, bottom: 300 }}
-                domainPadding={{ y: [150, 50] }}
+                padding={200}
+                offsetY={100}
                 style={{
                   axis: { stroke: "#fafafa" },
                   axisLabel: { fontSize: 20, fill: "#fafafa" },
                   ticks: { stroke: "#fafafa", size: 5 },
                   tickLabels: { fontSize: 15, fill: "#fafafa" },
+                }}
+              />
+              <VictoryAxis
+                dependentAxis
+                height={1000}
+                offsetX={100}
+                label="TC in USD"
+                domain={[
+                  -50000,
+                  Math.max(...scatterData.map((item) => item.y)),
+                ]}
+                style={{
+                  axis: { stroke: "#fafafa" },
+                  axisLabel: { fontSize: 20, fill: "#fafafa" },
+                  ticks: { stroke: "#fafafa", size: 5 },
+                  tickLabels: { fontSize: 15, padding: 5, fill: "#fafafa" },
                 }}
               />
               <VictoryScatter

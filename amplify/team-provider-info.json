@@ -27,7 +27,7 @@
           "googleServiceAccountEmail": "chiron-accessor@chiron-335523.iam.gserviceaccount.com",
           "secretsPathAmplifyAppId": "d3t9dkbm79oj67",
           "deploymentBucketName": "amplify-resumefixerupper-dev-212017-deployment",
-          "s3Key": "amplify-builds/salarypoller-6846316f764967664733-build.zip"
+          "s3Key": "amplify-builds/salarypoller-6c76444b6c4d65506b4d-build.zip"
         }
       }
     }
