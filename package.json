@@ -15,7 +15,9 @@
     "aws-amplify": "^4.3.26",
     "aws-amplify-react": "^5.1.9",
     "chart.js": "^3.8.0",
+    "currency.js": "^2.0.4",
     "history": "5",
+    "javascript-color-gradient": "^2.4.4",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -27,6 +29,7 @@
     "react-router-dom": "6",
     "react-wordcloud": "^1.2.7",
     "rsuite": "^5.4.0",
+    "victory": "^36.5.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

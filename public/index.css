@@ -498,6 +498,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 2rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .mr-8 {
   margin-right: 2rem;
 }
@@ -512,10 +516,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-2 {
   margin-top: 0.5rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
 }
 
 .block {
@@ -550,14 +550,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 8rem;
 }
 
-.h-1\/2 {
-  height: 50%;
-}
-
-.h-3\/4 {
-  height: 75%;
-}
-
 .w-screen {
   width: 100vw;
 }
@@ -590,16 +582,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 9999px;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-
 .rounded-xl {
   border-radius: 0.75rem;
 }
 
 .border-4 {
   border-width: 4px;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .border-black {
@@ -610,21 +602,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-blue-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 58 138 / var(--tw-bg-opacity));
-}
-
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 
 .p-5 {
@@ -655,11 +632,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 2rem;
 }
 
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -668,10 +640,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .px-12 {
   padding-left: 3rem;
   padding-right: 3rem;
-}
-
-.pt-8 {
-  padding-top: 2rem;
 }
 
 .pt-16 {
@@ -705,6 +673,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.75rem;
 }
 
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -718,11 +696,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .font-bold {
@@ -745,11 +718,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-blue-700 {
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity));
 }
 
 .text-red-800 {
