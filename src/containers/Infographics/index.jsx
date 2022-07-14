@@ -155,7 +155,7 @@ const Infographics = () => {
             </Col>
           ))}
           {Object.values(wordcloud).map(({ title, data }) => (
-            <Col xs={24} sm={24} md={24} lg={24} xl={12} key={title}>
+            <Col xs={24} sm={24} md={24} lg={24} xl={24} key={title}>
               <h3 className="text-2xl text-white mb-4">{title}</h3>
               <ReactWordcloud
                 words={data}
