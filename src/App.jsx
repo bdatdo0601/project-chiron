@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { flatten, groupBy } from "lodash";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Amplify from "@aws-amplify/core";
+import { Amplify } from "@aws-amplify/core";
 
 import awsConfig from "./aws-exports";
 import routes, { errorRoutes, ROUTE_TYPE } from "./routes";
@@ -24,10 +24,10 @@ const isLocalhost = Boolean(
 );
 
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
-const [localRedirectSignIn, productionRedirectSignIn] =
+const [productionRedirectSignIn, localRedirectSignIn] =
   awsConfig.oauth.redirectSignIn.split(",");
 
-const [localRedirectSignOut, productionRedirectSignOut] =
+const [productionRedirectSignOut, localRedirectSignOut] =
   awsConfig.oauth.redirectSignOut.split(",");
 
 Amplify.configure({

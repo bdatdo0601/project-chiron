@@ -75,7 +75,7 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://chiron.viettech.group/signin/\",\"https://chiron.datbdo.com/signin/\",\"http://localhost:3000/signin/\"],\"LogoutURLs\":[\"https://chiron.viettech.group/signout/\",\"https://chiron.datbdo.com/signout/\",\"http://localhost:3000/signout/\"]}",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://chiron.viettech.group/signin/\",\"http://localhost:3000/signin/\"],\"LogoutURLs\":[\"https://chiron.viettech.group/signout/\",\"http://localhost:3000/signout/\"]}",
     "authProviders": []
   }
 }
