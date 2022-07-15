@@ -2,7 +2,7 @@ import { get, groupBy, parseInt, sortBy, uniq } from "lodash";
 import React, { useState, useEffect } from "react";
 import { useMemo } from "react";
 import ReactWordcloud from "react-wordcloud";
-import { Col, Grid, Row } from "rsuite";
+import { Button, Col, Grid, Row } from "rsuite";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import {
   VictoryPie,
@@ -13,6 +13,7 @@ import {
 } from "victory";
 import Gradient from "javascript-color-gradient";
 import Currency from "currency.js";
+import { useNavigate } from "react-router-dom";
 
 import { fetchFileToJSON } from "../../utils";
 import { useGetFile } from "../../utils/awsStorage";
@@ -25,6 +26,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Infographics = () => {
   const { file, loading } = useGetFile("salarydata.json", "");
   const [salaryData, setSalaryData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     if (file) {
       fetchFileToJSON(file)
@@ -125,8 +127,10 @@ const Infographics = () => {
       amount: parseInt(item["Year of Experiences"].split("-")[1].split(" ")[0]),
       label: `
       Company: ${item["Company Name"]}
-      TC: ${item["TC in USD"]}
+      Roles: ${item["Focus"]}
+      Level: ${item["Level"]}
       YOE: ${item["Year of Experiences"]}
+      TC: ${Currency(item["TC in USD"], {}).format()}
       City: ${item["City"]}
       `,
     }));
@@ -139,14 +143,14 @@ const Infographics = () => {
 
   return (
     <div
-      className="h-full w-screen p-5 text-center pt-16 relative bg-black"
-      style={{ minHeight: "100vh" }}
+      className="h-full w-screen p-5 text-center pt-16 relative"
+      style={{ minHeight: "100vh", backgroundColor: "#222" }}
     >
       <h1 className="text-6xl my-8 text-white">Infographics</h1>
       <h2 className="text-xl my-8 text-white">
         ...Over {salaryData.length} people and growing
       </h2>
-      <Grid className="my-4" style={{ minHeight: 500 }}>
+      <Grid className="my-4" style={{ minHeight: 800 }}>
         <Row>
           {Object.values(pieCharts).map(({ title, data }) => (
             <Col xs={24} sm={24} md={12} lg={8} xl={8} key={title}>
@@ -174,14 +178,14 @@ const Infographics = () => {
             </h3>
             <VictoryChart
               height={1000}
-              width={window.innerWidth}
+              width={Math.max(window.innerWidth, 1000)}
               style={{
                 labels: {
                   fontSize: 12,
                   color: "#fafafa",
                 },
               }}
-              domainPadding={{ x: 100 }}
+              domainPadding={{ x: 100, y: 50 }}
 
             >
               <VictoryAxis
@@ -197,9 +201,7 @@ const Infographics = () => {
               />
               <VictoryAxis
                 dependentAxis
-                height={1000}
                 offsetX={100}
-                label="TC in USD"
                 domain={[
                   -50000,
                   Math.max(...scatterData.map((item) => item.y)),
@@ -214,7 +216,7 @@ const Infographics = () => {
               <VictoryScatter
                 data={scatterData}
                 labelComponent={<VictoryTooltip />}
-                size={8}
+                size={10}
                 style={{
                   parent: {
                     border: "1px solid #ccc",
@@ -228,7 +230,7 @@ const Infographics = () => {
                       return gradientArray[datum.amount];
                     },
                     stroke: "#fafafa",
-                    strokeWidth: 1,
+                    strokeWidth: 2,
                   },
                 }}
               />
@@ -236,6 +238,9 @@ const Infographics = () => {
           </Col>
         </Row>
       </Grid>
+      <Button appearance="primary" onClick={() => {
+        window.open("https://forms.gle/5FpidNeriJ3w7i3v8");
+      }}>Submit your own?</Button>
     </div>
   );
 };

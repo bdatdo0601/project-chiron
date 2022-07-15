@@ -16,17 +16,17 @@
     "s3Key": {
       "Type": "String"
     },
-    "googleSheetId": {
-      "Type": "String"
-    },
-    "googleServiceAccountEmail": {
-      "Type": "String"
-    },
     "storages3012d5ca4BucketName": {
       "Type": "String",
       "Default": "storages3012d5ca4BucketName"
     },
     "secretsPathAmplifyAppId": {
+      "Type": "String"
+    },
+    "googleSheetId": {
+      "Type": "String"
+    },
+    "googleServiceAccountEmail": {
       "Type": "String"
     }
   },
@@ -86,12 +86,6 @@
             "STORAGE_S3012D5CA4_BUCKETNAME": {
               "Ref": "storages3012d5ca4BucketName"
             },
-            "GOOGLE_SHEET_ID": {
-              "Ref": "googleSheetId"
-            },
-            "GOOGLE_SERVICE_ACCOUNT_EMAIL": {
-              "Ref": "googleServiceAccountEmail"
-            },
             "GOOGLE_PRIVATE_KEY": {
               "Fn::Join": [
                 "",
@@ -113,6 +107,12 @@
                   "GOOGLE_PRIVATE_KEY"
                 ]
               ]
+            },
+            "GOOGLE_SHEET_ID": {
+              "Ref": "googleSheetId"
+            },
+            "GOOGLE_SERVICE_ACCOUNT_EMAIL": {
+              "Ref": "googleServiceAccountEmail"
             }
           }
         },
@@ -323,6 +323,45 @@
       "DependsOn": [
         "LambdaExecutionRole"
       ]
+    },
+    "CloudWatchEvent": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Description": "Schedule rule for Lambda",
+        "ScheduleExpression": {
+          "Ref": "CloudWatchRule"
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "LambdaFunction",
+                "Arn"
+              ]
+            },
+            "Id": {
+              "Ref": "LambdaFunction"
+            }
+          }
+        ]
+      }
+    },
+    "PermissionForEventsToInvokeLambda": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "LambdaFunction"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "CloudWatchEvent",
+            "Arn"
+          ]
+        }
+      }
     }
   },
   "Outputs": {
@@ -347,6 +386,11 @@
     "LambdaExecutionRole": {
       "Value": {
         "Ref": "LambdaExecutionRole"
+      }
+    },
+    "CloudWatchEventRule": {
+      "Value": {
+        "Ref": "CloudWatchEvent"
       }
     }
   }
